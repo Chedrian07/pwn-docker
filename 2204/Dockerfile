@@ -10,7 +10,7 @@ ENV LC_CTYPE C.UTF-8
 WORKDIR /root
 
 RUN apt update && apt install -y  netcat
-RUN apt install vim git gcc ssh curl wget gdb sudo zsh python3 python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make gcc-multilib -y
+RUN apt install vim git gcc ssh curl wget gdb sudo zsh python3 python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make gcc-multilib qemu-user-static -y
 RUN apt install tmux -y
 
 RUN sudo apt install -y openssh-server
@@ -85,9 +85,9 @@ COPY setting/.gdbinit /root/.gdbinit
 
 RUN echo "alias pwn='/root/pwn-command/go2pwn'" >> ~/.zshrc
 RUN echo "alias ida='/root/.tools/ida/ida64'" >> ~/.zshrc
-RUN echo "alias pwnx86='/root/.tools/pwn-x86.sh'" >> ~/.zshrc
-RUN echo "alias pwn-x64='/root/.tools/pwn-x64.sh'" >> ~/.zshrc
-RUN echo "alias pwn-arm='/root/.tools/pwn-arm.sh'" >> ~/.zshrc
+RUN echo "alias pwnx86='/root/.script/pwn-x86.sh'" >> ~/.zshrc
+RUN echo "alias pwn-x64='/root/.script/pwn-x64.sh'" >> ~/.zshrc
+RUN echo "alias pwn-arm='/root/.script/pwn-arm.sh'" >> ~/.zshrc
 
 RUN chmod +x /root/.script/*
 RUN chmod +x /root/.tools/*

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 $1
-path=$(realpath $1)
+path=$(realpath "$1")
 
 # Check binary architecture and bitness
 file_output=$(file "$1")
