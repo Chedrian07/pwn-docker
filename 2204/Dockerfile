@@ -74,8 +74,13 @@ RUN mkdir /root/.tools
 COPY ../setting/pwn-command/ /root/.script/
 COPY ../Tools/ /root/.tools/
 
-COPY ../setting/.tmux.conf /root/.tmux.conf
+RUN touch /root/.tmux.conf
+RUN touch /root/.vimrc
+RUN touch /root/.gdbinit
 
+COPY ../setting/.tmux.conf /root/.tmux.conf
+COPY ../setting/.vimrc /root/.vimrc
+COPY ../setting/.gdbinit /root/.gdbinit
 #-------------------Import script to .zshrc--------------------------#
 
 RUN echo "alias pwn='/root/pwn-command/go2pwn'" >> ~/.zshrc
@@ -86,6 +91,8 @@ RUN echo "alias pwn-arm='/root/.tools/pwn-arm.sh'" >> ~/.zshrc
 
 RUN chmod +x /root/.script/*
 RUN chmod +x /root/.tools/*
+
+
 
 #--------------------------------------------------------------------#
 

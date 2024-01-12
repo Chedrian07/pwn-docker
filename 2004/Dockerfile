@@ -10,7 +10,7 @@ ENV LC_CTYPE C.UTF-8
 WORKDIR /root
 
 RUN apt update && apt install -y  netcat
-RUN apt install vim git gcc ssh curl wget gdb sudo zsh python3 python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make gcc-multilib -y
+RUN apt install vim git gcc ssh curl wget gdb sudo zsh python3 python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make gcc-multilib qemu-user-static -y
 RUN apt install tmux -y
 
 RUN sudo apt install -y openssh-server
@@ -46,9 +46,9 @@ RUN git clone https://github.com/radareorg/radare2 && cd radare2 && sys/install.
 RUN cd /root
 RUN git clone https://github.com/jerdna-regeiz/splitmind
 
-RUN apt install ruby-full -y
+RUN apt install ruby-full gem -y
 RUN apt install ruby-dev -y
-RUN gem install one_gadget -v 1.7.3
+RUN gem install one_gadget
 
 RUN git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim #Git Plugin
 
@@ -74,13 +74,20 @@ RUN mkdir /root/.tools
 COPY ../setting/pwn-command/ /root/.script/
 COPY ../Tools/ /root/.tools/
 
+RUN touch /root/.tmux.conf
+RUN touch /root/.vimrc
+RUN touch /root/.gdbinit
+
+COPY ../setting/.tmux.conf /root/.tmux.conf
+COPY ../setting/.vimrc /root/.vimrc
+COPY ../setting/.gdbinit /root/.gdbinit
+
 #-------------------Import script to .zshrc--------------------------#
 
-RUN echo "alias pwn='/root/pwn-command/go2pwn'" >> ~/.zshrc
-RUN echo "alias ida='/root/.tools/ida/ida64'" >> ~/.zshrc
-RUN echo "alias pwnx86='/root/.tools/pwn-x86.sh'" >> ~/.zshrc
-RUN echo "alias pwn-x64='/root/.tools/pwn-x64.sh'" >> ~/.zshrc
-RUN echo "alias pwn-arm='/root/.tools/pwn-arm.sh'" >> ~/.zshrc
+RUN echo "alias ida='/root/.script/ida-dbg.sh'" >> ~/.zshrc
+RUN echo "alias pwnx86='/root/.script/pwn-x86.sh'" >> ~/.zshrc
+RUN echo "alias pwnx64='/root/.script/pwn-x64.sh'" >> ~/.zshrc
+RUN echo "alias pwnarm='/root/.script/pwn-arm.sh'" >> ~/.zshrc
 
 RUN chmod +x /root/.script/*
 RUN chmod +x /root/.tools/*

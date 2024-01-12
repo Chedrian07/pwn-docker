@@ -74,6 +74,14 @@ RUN mkdir /root/.tools
 COPY ../setting/pwn-command/ /root/.script/
 COPY ../Tools/ /root/.tools/
 
+RUN touch /root/.tmux.conf
+RUN touch /root/.vimrc
+RUN touch /root/.gdbinit
+
+COPY ../setting/.tmux.conf /root/.tmux.conf
+COPY ../setting/.vimrc /root/.vimrc
+COPY ../setting/.gdbinit /root/.gdbinit
+
 #-------------------Import script to .zshrc--------------------------#
 
 RUN echo "alias ida='/root/.script/ida-dbg.sh'" >> ~/.zshrc
