@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 LABEL org.label-schema.arch="x86-64"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -9,14 +9,14 @@ ENV LC_CTYPE C.UTF-8
 
 WORKDIR /root
 
-RUN apt update && apt install -y  netcat
+RUN apt update -y
 RUN apt install vim git gcc ssh curl wget gdb sudo zsh python3 python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make gcc-multilib -y
-RUN apt install tmux -y
+RUN sudo apt install tmux -y
 
 RUN sudo apt install -y openssh-server
 RUN sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sudo sed -i 's/#Port 22/Port 22/' /etc/ssh/sshd_config
-RUN echo "root:2204" | sudo chpasswd  #유저 변경
+RUN echo "root:2404" | sudo chpasswd  #유저 변경
 RUN sudo systemctl enable ssh
 RUN sudo service ssh restart
 
@@ -71,10 +71,9 @@ RUN mkdir /root/pwn
 RUN mkdir /root/.script
 RUN mkdir /root/.tools
 
-COPY ../setting/pwn-command/ /root/.script/
-COPY ../Tools/ /root/.tools/
-
-COPY ../setting/.tmux.conf /root/.tmux.conf
+#COPY ../setting/pwn-command/ /root/.script/
+#COPY ../Tools/ /root/.tools/
+#COPY ../setting/.tmux.conf /root/.tmux.conf
 
 #-------------------Import script to .zshrc--------------------------#
 
