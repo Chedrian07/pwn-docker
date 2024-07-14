@@ -8,7 +8,7 @@ ENV LC_CTYPE C.UTF-8
 
 WORKDIR /root
 
-RUN apt update && apt install -y netcat
+RUN apt update && apt install -y netcat-traditional
 RUN apt install vim git gcc ssh curl wget gdb sudo zsh python3 python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make -y
 
 RUN dpkg --add-architecture i386
