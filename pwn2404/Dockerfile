@@ -22,8 +22,8 @@ RUN pip3 install pwntools
 RUN pip3 install ropgadget
 RUN apt install libcapstone-dev -y
 
-RUN git clone https://github.com/hugsy/gef ./gef
-RUN echo source ~/gef/gef.py >> ~/.gdbinit
+RUN wget -q https://raw.githubusercontent.com/bata24/gef/dev/install.sh -O- | sed -e 's/pip3 install/pip3 install --break-system-packages/g' | sh
+RUN touch /root/.gef.rc
 
 RUN apt install ruby-full -y
 RUN pip3 install one_gadget
